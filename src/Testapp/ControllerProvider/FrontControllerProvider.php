@@ -8,6 +8,7 @@ class FrontControllerProvider implements ControllerProviderInterface
 	public function connect(Application $app)
 	{
 		$c = $app['controllers_factory'];
+		//ルーティング
 		$c->match('/hello/{name}','\Testapp\Controller\TopController::index');
 
 		return $c;
