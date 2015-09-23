@@ -2,10 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-$app = new Silex\Application();
+$app = new Testapp\Application();
 
-$app->get('/hello', function () {
-    return 'Hello!';
-});
 
 $app->run();

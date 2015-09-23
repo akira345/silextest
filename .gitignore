@@ -86,3 +86,5 @@ composer.lock
 
 # Composer PHAR
 /bin/composer.phar
+
+/log/*
