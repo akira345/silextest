@@ -4,8 +4,8 @@ use Testapp\Application;
 
 Class TopController
 {
-	public function index(Application $app)
+	public function index(Application $app,$name)
 	{
-		return "Hellow";
+		return $app['twig']->render('index.twig',array('name'=> $name));
 	}
 }

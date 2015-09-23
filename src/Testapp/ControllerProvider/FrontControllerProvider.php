@@ -8,7 +8,7 @@ class FrontControllerProvider implements ControllerProviderInterface
 	public function connect(Application $app)
 	{
 		$c = $app['controllers_factory'];
-		$c->match('/hello','\Testapp\Controller\TopController::index');
+		$c->match('/hello/{name}','\Testapp\Controller\TopController::index');
 
 		return $c;
 	}
