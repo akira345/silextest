@@ -6,6 +6,6 @@ Class DefaultController
 {
 	public function index(Application $app)
 	{
-		return $app['twig']->render('Top/index.twig');
+		return $app['twig']->render('Default/index.twig');
 	}
 }
