@@ -2,19 +2,19 @@
     "require": {
         "silex/silex": "~1.1",
         "monolog/monolog": ">=1.0.0",
-		"deralex/yaml-config-service-provider": "1.0.x-dev",
-		"twig/twig": ">=1.8,<2.0-dev",
-		"symfony/twig-bridge": "~2.3",
-		"symfony/form": "~2.3",
-		"symfony/validator": "~2.3",
-		"symfony/config": "~2.3",
-		"symfony/translation": "~2.3",
-		"symfony/locale": "~2.3",
-		"symfony/security": "~2.3"
+        "deralex/yaml-config-service-provider": "1.0.x-dev",
+        "twig/twig": ">=1.8,<2.0-dev",
+        "symfony/twig-bridge": "~2.3",
+        "symfony/form": "~2.3",
+        "symfony/validator": "~2.3",
+        "symfony/config": "~2.3",
+        "symfony/translation": "~2.3",
+        "symfony/locale": "~2.3",
+        "symfony/security": "~2.3"
     },
-	"autoload": {
-		"psr-4": {
-			"Testapp\\": "src/Testapp"
-		}
-	}
+    "autoload": {
+        "psr-4": {
+            "Testapp\\": "src/Testapp"
+        }
+    }
 }

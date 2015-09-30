@@ -5,24 +5,24 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 Class AdminController
 {
-	public function index(Application $app)
-	{
-		return "OK";
-	}
-	public function login(Application $app,Request $request)
-	{
-		$form = $app['form.factory']->createBuilder()
-			->add('username','text',array(
-									'data' =>$app['session']->get('_security.last_username')  //’l‚â‘®«‚ðƒZƒbƒgBTwig‘¤‚Å‚ào—ˆ‚éB
-									)
-			)
-			->add('password','password')
-			->getForm();
+    public function index(Application $app)
+    {
+        return "OK";
+    }
+    public function login(Application $app,Request $request)
+    {
+        $form = $app['form.factory']->createBuilder()
+            ->add('username','text',array(
+                                    'data' =>$app['session']->get('_security.last_username')  //å€¤ã‚„å±žæ€§ã‚’ã‚»ãƒƒãƒˆã€‚Twigå´ã§ã‚‚å‡ºæ¥ã‚‹ã€‚
+                                    )
+            )
+            ->add('password','password')
+            ->getForm();
 
-	    return $app['twig']->render('Admin/login.twig', array(
-	        'error'         => $app['security.last_error']($request),
-//	        'last_username' => $app['session']->get('_security.last_username'),
-			'form' => $form->createView(),
-	    ));
-	}
+        return $app['twig']->render('Admin/login.twig', array(
+            'error'         => $app['security.last_error']($request),
+//          'last_username' => $app['session']->get('_security.last_username'),
+            'form' => $form->createView(),
+        ));
+    }
 }
