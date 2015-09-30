@@ -10,8 +10,7 @@
 		"symfony/config": "~2.3",
 		"symfony/translation": "~2.3",
 		"symfony/locale": "~2.3",
-		"symfony/security": "~2.3",
-		"symfony/validator": "~2.3"
+		"symfony/security": "~2.3"
     },
 	"autoload": {
 		"psr-4": {

@@ -8,6 +8,8 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\Translation\Loader\YamlFileLoader;
+
 
 Class Application extends \Silex\Application
 {
@@ -62,6 +64,8 @@ Class Application extends \Silex\Application
 					'default_target_path' => '/admin',		//いきなりログインパスを叩かれた場合のデフォルトページ
 					'always_use_default_target_path' => false,		//常にデフォルトページにリダイレクトする
 					'with_csrf' => true,		//csrf対策を有効化
+                    'username_parameter' => 'form[username]',	//form builderを使用すると、form[]な形でセットされる
+                    'password_parameter' => 'form[password]',
 				),
 				'logout' => array(
 					'logout_path' => '/admin/logout',	//ログアウトするパス
