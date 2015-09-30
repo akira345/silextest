@@ -33,6 +33,15 @@ Class Application extends \Silex\Application
 		$this->register(new \Silex\Provider\MonologServiceProvider(), array(
 			'monolog.logfile' => __DIR__.'/../../log/development.log',
 		));
+		//Translationサービスを使う
+		$this->register(new \Silex\Provider\TranslationServiceProvider(), [
+		    'locale_fallback' => 'ja',
+		]);
+		$this['translator'] = $this->extend('translator', function($translator, $app) {
+		    $translator->addLoader('yaml', new YamlFileLoader());
+		    $translator->addResource('yaml', __DIR__.'/locale/msg.ja.yml', 'ja');
+		    return $translator;
+		});
 		//Twigを使う
 		$this->register(new \Silex\Provider\TwigServiceProvider(), array(
 		    'twig.path' => __DIR__.'/views',
