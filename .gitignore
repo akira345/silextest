@@ -88,3 +88,5 @@ composer.lock
 /bin/composer.phar
 
 /log/*
+
+pimple.json

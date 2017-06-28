@@ -10,13 +10,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
-
 Class Application extends \Silex\Application
 {
     public function __construct(array $values = array())
     {
         //親クラスのコンストラクタを呼び出す。
         parent::__construct($values);
+        //PHPStorm用
+        $this->register(new \Sorien\Provider\PimpleDumpProvider());
         //Sessionサービスを使う
         $this->register(new \Silex\Provider\SessionServiceProvider());
         //Formサービスを使う
@@ -25,8 +26,8 @@ Class Application extends \Silex\Application
         $this->register(new \Silex\Provider\SecurityServiceProvider());
         //認証サービスを使う
         $this->register(new \Silex\Provider\RememberMeServiceProvider());
-        //URLジェネレータサービスを使う
-        $this->register(new \Silex\Provider\UrlGeneratorServiceProvider());
+//        //URLジェネレータサービスを使う
+//        $this->register(new \Silex\Provider\UrlGeneratorServiceProvider());
         //バリデータサービスを使う
         $this->register(new \Silex\Provider\ValidatorServiceProvider());
         //Monologを使う。
@@ -46,6 +47,8 @@ Class Application extends \Silex\Application
         $this->register(new \Silex\Provider\TwigServiceProvider(), array(
             'twig.path' => __DIR__.'/views',
         ));
+        //Localeサービスを追加
+        $this->register(new \Silex\Provider\LocaleServiceProvider());
         //エラーハンドリング
         $this->error(function (\Exception $e, $code) {
             switch ($code) {
@@ -57,6 +60,7 @@ Class Application extends \Silex\Application
             }
             return new Response($message);
         });
+
         //セキュリティファイヤーウォールの設定
         $this['security.firewalls'] = array(
             //ログインフォームは誰でもアクセスできるように設定
@@ -89,19 +93,19 @@ Class Application extends \Silex\Application
                 'anonymous' => false,       //匿名アクセスを許可しない
             ),
         );
+
         $app = $this;
-        $this['security.encoder.digest'] = $this->share(function ($app) {
+        $this['security.encoder.digest'] = function ($app) {
             return new PlaintextPasswordEncoder();
-        });
+        };
         //ロールの設定
         $this['security.access_rules'] = array(
             array('^/admin/login', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/admin', 'ROLE_ADMIN'),
         );
+
         //コントローラプロバイダを登録
         $this->register(new \Silex\Provider\ServiceControllerServiceProvider());
         $this->mount('', new ControllerProvider\FrontControllerProvider());
     }
-
-
 }

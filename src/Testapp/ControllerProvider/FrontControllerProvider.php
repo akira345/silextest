@@ -1,7 +1,7 @@
 <?php
 namespace Testapp\ControllerProvider;
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 
 class FrontControllerProvider implements ControllerProviderInterface
 {

@@ -1,20 +1,22 @@
 {
     "require": {
-        "silex/silex": "~1.1",
-        "monolog/monolog": ">=1.0.0",
-        "deralex/yaml-config-service-provider": "1.0.x-dev",
-        "twig/twig": ">=1.8,<2.0-dev",
-        "symfony/twig-bridge": "~2.3",
-        "symfony/form": "~2.3",
-        "symfony/validator": "~2.3",
-        "symfony/config": "~2.3",
-        "symfony/translation": "~2.3",
-        "symfony/locale": "~2.3",
-        "symfony/security": "~2.3"
+        "silex/silex": "~2.0",
+        "symfony/security": "^3.3",
+        "symfony/form": "^3.3",
+        "symfony/validator": "^3.3",
+        "symfony/config": "^3.3",
+        "symfony/twig-bridge": "^3.3",
+        "symfony/translation": "^3.3",
+        "symfony/debug": "^3.3",
+        "symfony/monolog-bridge": "^3.3",
+        "symfony/http-kernel": "^3.3"
     },
     "autoload": {
         "psr-4": {
             "Testapp\\": "src/Testapp"
         }
+    },
+    "require-dev": {
+        "sorien/silex-pimple-dumper": "~2.0"
     }
 }
