@@ -8,7 +8,9 @@ use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
+use Silex\Provider\CsrfServiceProvider;
 
 Class Application extends \Silex\Application
 {
@@ -36,7 +38,7 @@ Class Application extends \Silex\Application
         ));
         //Translationサービスを使う
         $this->register(new \Silex\Provider\TranslationServiceProvider(), [
-            'locale_fallback' => 'ja',
+            'locale_fallback' => array('ja'),
         ]);
         $this['translator'] = $this->extend('translator', function($translator, $app) {
             $translator->addLoader('yaml', new YamlFileLoader());
@@ -48,7 +50,9 @@ Class Application extends \Silex\Application
             'twig.path' => __DIR__.'/views',
         ));
         //Localeサービスを追加
-        $this->register(new \Silex\Provider\LocaleServiceProvider());
+        $this->register(new \Silex\Provider\LocaleServiceProvider(), array(
+            'locale' => 'ja',
+        ));
         //エラーハンドリング
         $this->error(function (\Exception $e, $code) {
             switch ($code) {
@@ -93,19 +97,22 @@ Class Application extends \Silex\Application
                 'anonymous' => false,       //匿名アクセスを許可しない
             ),
         );
-
-        $app = $this;
-        $this['security.encoder.digest'] = function ($app) {
-            return new PlaintextPasswordEncoder();
+        //パスワードのカスタムエンコードを有効化し、プレインテキストを設定
+        $this['security.default_encoder'] = function ($app) {
+          // Plain text (e.g. for debugging)
+          return new PlaintextPasswordEncoder();
         };
         //ロールの設定
         $this['security.access_rules'] = array(
             array('^/admin/login', 'IS_AUTHENTICATED_ANONYMOUSLY'),
             array('^/admin', 'ROLE_ADMIN'),
         );
-
+        //CSRF設定
+        $this->register(new CsrfServiceProvider());
         //コントローラプロバイダを登録
         $this->register(new \Silex\Provider\ServiceControllerServiceProvider());
         $this->mount('', new ControllerProvider\FrontControllerProvider());
+
+        $app = $this;
     }
 }
