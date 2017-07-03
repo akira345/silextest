@@ -2,15 +2,10 @@
 
 namespace Testapp;
 
-use Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy;
-use Monolog\Handler\FingersCrossedHandler;
-use Monolog\Handler\RotatingFileHandler;
-use Monolog\Logger;
+use Silex\Provider\CsrfServiceProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
-use Silex\Provider\CsrfServiceProvider;
 
 Class Application extends \Silex\Application
 {
@@ -28,8 +23,6 @@ Class Application extends \Silex\Application
         $this->register(new \Silex\Provider\SecurityServiceProvider());
         //認証サービスを使う
         $this->register(new \Silex\Provider\RememberMeServiceProvider());
-//        //URLジェネレータサービスを使う
-//        $this->register(new \Silex\Provider\UrlGeneratorServiceProvider());
         //バリデータサービスを使う
         $this->register(new \Silex\Provider\ValidatorServiceProvider());
         //Monologを使う。
