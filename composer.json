@@ -13,7 +13,9 @@
         "symfony/yaml": "^3.3",
         "symfony/security-csrf": "^3.3",
         "monolog/monolog": "^1.23",
-        "twig/twig": "^2.4"
+        "twig/twig": "^2.4",
+        "symfony/browser-kit": "^3.3",
+        "symfony/css-selector": "^3.3"
     },
     "autoload": {
         "psr-4": {
@@ -21,6 +23,7 @@
         }
     },
     "require-dev": {
-        "sorien/silex-pimple-dumper": "~2.0"
+        "sorien/silex-pimple-dumper": "~2.0",
+        "phpunit/phpunit": "5.7.*"
     }
 }
