@@ -8,6 +8,7 @@
         {{ error|trans|raw }}
         {{ form_widget(form.username, {'attr': {'size': 20, 'placeholder': 'ログインID'}}) }}
         {{ form_widget(form.password, {'attr': {'size': 20, 'placeholder': 'パスワード'}}) }}
+
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
         <input type="submit" />
     {{ form_end(form) }}
