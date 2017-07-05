@@ -19,6 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
 
+/**
+ * Class Application
+ * @package Testapp
+ */
 Class Application extends \Silex\Application
 {
     public function __construct(array $values = array())
@@ -86,8 +90,13 @@ Class Application extends \Silex\Application
                     'default_target_path' => '/admin',      //いきなりログインパスを叩かれた場合のデフォルトページ
                     'always_use_default_target_path' => false,      //常にデフォルトページにリダイレクトする
                     'with_csrf' => true,        //csrf対策を有効化
-                    'username_parameter' => 'form[username]',   //form builderを使用すると、form[]な形でセットされる
-                    'password_parameter' => 'form[password]',
+                    'username_parameter' => 'username',   //form builderを使用すると、form[]な形でセットされる
+                    'password_parameter' => 'password',
+                    'require_previous_session' => false, //falseにしないとphpunitでテストが通らない
+                    'csrd_parameter' => '_csrf_token',
+                    'csrf_token_id' => 'authenticate',
+                    'csrf_token_generator' => 'security.csrf.token_manager',
+                    'post_only' => true,
                 ),
                 'logout' => array(
                     'logout_path' => '/admin/logout',   //ログアウトするパス
