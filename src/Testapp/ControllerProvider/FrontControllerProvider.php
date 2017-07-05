@@ -1,10 +1,19 @@
 <?php
 namespace Testapp\ControllerProvider;
+
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
+/**
+ * Class FrontControllerProvider
+ * @package Testapp\ControllerProvider
+ */
 class FrontControllerProvider implements ControllerProviderInterface
 {
+    /**
+     * @param Application $app
+     * @return mixed
+     */
     public function connect(Application $app)
     {
         $c = $app['controllers_factory'];
