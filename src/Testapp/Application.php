@@ -3,6 +3,10 @@
 namespace Testapp;
 
 use Silex\Provider\CsrfServiceProvider;
+use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\TranslationServiceProvider;
+use Silex\Provider\TwigServiceProvider;
+use Sorien\Provider\PimpleDumpProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
 use Symfony\Component\Translation\Loader\YamlFileLoader;
@@ -14,7 +18,7 @@ Class Application extends \Silex\Application
         //親クラスのコンストラクタを呼び出す。
         parent::__construct($values);
         //PHPStorm用
-        $this->register(new \Sorien\Provider\PimpleDumpProvider());
+        $this->register(new PimpleDumpProvider());
         //Sessionサービスを使う
         $this->register(new \Silex\Provider\SessionServiceProvider());
         //Formサービスを使う
@@ -30,7 +34,7 @@ Class Application extends \Silex\Application
             'monolog.logfile' => __DIR__.'/../../log/development.log',
         ));
         //Translationサービスを使う
-        $this->register(new \Silex\Provider\TranslationServiceProvider(), [
+        $this->register(new TranslationServiceProvider(), [
             'locale_fallback' => array('ja'),
         ]);
         $this['translator'] = $this->extend('translator', function($translator, $app) {
@@ -39,11 +43,11 @@ Class Application extends \Silex\Application
             return $translator;
         });
         //Twigを使う
-        $this->register(new \Silex\Provider\TwigServiceProvider(), array(
+        $this->register(new TwigServiceProvider(), array(
             'twig.path' => __DIR__.'/views',
         ));
         //Localeサービスを追加
-        $this->register(new \Silex\Provider\LocaleServiceProvider(), array(
+        $this->register(new LocaleServiceProvider(), array(
             'locale' => 'ja',
         ));
         //エラーハンドリング
