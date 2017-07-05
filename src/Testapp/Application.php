@@ -2,10 +2,18 @@
 
 namespace Testapp;
 
+use Exception;
 use Silex\Provider\CsrfServiceProvider;
+use Silex\Provider\FormServiceProvider;
 use Silex\Provider\LocaleServiceProvider;
+use Silex\Provider\MonologServiceProvider;
+use Silex\Provider\RememberMeServiceProvider;
+use Silex\Provider\SecurityServiceProvider;
+use Silex\Provider\ServiceControllerServiceProvider;
+use Silex\Provider\SessionServiceProvider;
 use Silex\Provider\TranslationServiceProvider;
 use Silex\Provider\TwigServiceProvider;
+use Silex\Provider\ValidatorServiceProvider;
 use Sorien\Provider\PimpleDumpProvider;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Encoder\PlaintextPasswordEncoder;
@@ -20,17 +28,17 @@ Class Application extends \Silex\Application
         //PHPStorm用
         $this->register(new PimpleDumpProvider());
         //Sessionサービスを使う
-        $this->register(new \Silex\Provider\SessionServiceProvider());
+        $this->register(new SessionServiceProvider());
         //Formサービスを使う
-        $this->register(new \Silex\Provider\FormServiceProvider());
+        $this->register(new FormServiceProvider());
         //セキュリティサービスを使う
-        $this->register(new \Silex\Provider\SecurityServiceProvider());
+        $this->register(new SecurityServiceProvider());
         //認証サービスを使う
-        $this->register(new \Silex\Provider\RememberMeServiceProvider());
+        $this->register(new RememberMeServiceProvider());
         //バリデータサービスを使う
-        $this->register(new \Silex\Provider\ValidatorServiceProvider());
+        $this->register(new ValidatorServiceProvider());
         //Monologを使う。
-        $this->register(new \Silex\Provider\MonologServiceProvider(), array(
+        $this->register(new MonologServiceProvider(), array(
             'monolog.logfile' => __DIR__.'/../../log/development.log',
         ));
         //Translationサービスを使う
@@ -51,7 +59,7 @@ Class Application extends \Silex\Application
             'locale' => 'ja',
         ));
         //エラーハンドリング
-        $this->error(function (\Exception $e, $code) {
+        $this->error(function (Exception $e, $code) {
             switch ($code) {
                 case 404:
                     $message = 'The requested page could not be found.';
@@ -107,7 +115,7 @@ Class Application extends \Silex\Application
         //CSRF設定
         $this->register(new CsrfServiceProvider());
         //コントローラプロバイダを登録
-        $this->register(new \Silex\Provider\ServiceControllerServiceProvider());
+        $this->register(new ServiceControllerServiceProvider());
         $this->mount('', new ControllerProvider\FrontControllerProvider());
 
         $app = $this;
