@@ -5,11 +5,12 @@
 {% block content %}
 
     {{ form_start(form,{'method': 'post','action': path('admin_login_check')}) }}
-        {{ error|trans }}
+        {{ error|trans|raw }}
         {{ form_widget(form.username, {'attr': {'size': 20, 'placeholder': 'ログインID'}}) }}
         {{ form_widget(form.password, {'attr': {'size': 20, 'placeholder': 'パスワード'}}) }}
-        <input type="submit" />
+
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-    {{ form_end(form, {'render_rest': false}) }} <!-- Form Builderを使うと、CSRF対策用トークンがセットされるが、ログインでは使用していないのでfalse設定。 -->
+        <input type="submit" />
+    {{ form_end(form) }}
 
 {% endblock %}
